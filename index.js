@@ -34,7 +34,7 @@ async function run() {
 
       app.get("/tasks", async (req, res) => {
         const result = await servicesCollection.find().toArray();
-        console.log('thisi is')
+        console.log('thisi is local machine')
         //   console.log(result);
         res.send(result);
       });
