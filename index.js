@@ -1,4 +1,5 @@
 const express = require('express')
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const env = require('dotenv').config()
 const cors = require('cors')
 const app = express()
@@ -7,7 +8,7 @@ const port = 3000
 app.use(cors())
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+
 const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_SECRET_KEY}@cluster0.kgrh0ns.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -39,7 +40,8 @@ async function run() {
         res.send(result);
       });
       app.post("/tasks", async (req, res) => {
-        const data = { "prodId": 100, "price": 20, "quantity": 125 }
+        const body = req.body;
+        console.log(body)
         const result = await servicesCollection.insertOne(data)
         //   console.log(result);
         res.send(result);
@@ -60,3 +62,4 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
